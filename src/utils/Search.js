@@ -18,9 +18,8 @@ class Search {
      */
   search(text, statusCheckbox) {
     const searchText = text.toLowerCase()
-    return this._isShort(statusCheckbox, this._itemsList).filter(item =>
-      item.nameRU.toLowerCase().includes(searchText) || item.nameEN.toLowerCase().includes(searchText)
-    );
+    return this._isShort(statusCheckbox, this._itemsList).filter(movie => Object.values(movie)
+      .some(value => typeof value === "string" ? value.toLowerCase().includes(searchText) : value === searchText));
   };
 }
 

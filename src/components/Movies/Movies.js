@@ -6,47 +6,44 @@ import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import NotFoundSearch from '../NotFoundSearch/NotFoundSearch'
-import { moviesApi } from '../../utils/MoviesApi';
 import { api } from '../../utils/MainApi.js';
 import { useResize } from '../hooks/useResize';
 import Search from '../../utils/Search';
-import { moviesLocalStorageNames } from '../../utils/constants';
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 import { MOVIES_CARDS_L, MOVIES_CARDS_M, MOVIES_CARDS_S } from '../../utils/constants';
 import { ADD_MOVIES_CARD_L, ADD_MOVIES_CARD_M, ADD_MOVIES_CARD_S } from '../../utils/constants';
+
+import beatfilmMovies from '../../utils/beatFilmMovies.json'
 
 
 function Movies() {
 
   const { width, isScreenS, isScreenM, isScreenL } = useResize(); //стейт для размера экрана
-  const { localMovies, moviesResalt, moviesSearchText, moviesStatusCheckbox } = moviesLocalStorageNames //имена записей в localStorage
-  const { token } = React.useContext(CurrentUserContext);
+  // const { token } = React.useContext(CurrentUserContext);
 
   const [cardsNumber, setCardsNumber] = useState({ first: '', next: '', }); //стейт для колличества карточек на экране
-  const [isPreloader, setIsPreloader] = useState(true); //стейт состояния прелоудора
-  const [beatfilmMovies, setBeatfilmMovies] = useState(JSON.parse(localStorage.getItem(localMovies)) || []); //стейт для всех карточек
+  const [isPreloader, setIsPreloader] = useState(false); //стейт состояния прелоудора
   const [savedMovies, setSavedMovies] = useState([]); //стейт для всех карточек
   const [shownCardsNumber, setShownCardsNumber] = useState(cardsNumber.first); //стейт сколько картачек сейчас на экране
-  const [cardsResalt, setCardsResalt] = useState(JSON.parse(localStorage.getItem(moviesResalt)) || {}); //стейт для окончательного списка карточек
+  const [cardsResalt, setCardsResalt] = useState({}); //стейт для окончательного списка карточек
 
   //проверка localStorage и получение карточек
-  useEffect(() => {
-    api.setToken(token);
-    api.getCards()
-      .then((res) => {
-        setSavedMovies(res);
-      })
-      .catch((err) => console.log(err));
-    if (!beatfilmMovies.length) {
-      moviesApi.getCards()
-        .then((res) => {
-          setBeatfilmMovies(res);
-          localStorage.setItem(localMovies, JSON.stringify(res));
-        })
-        .catch((err) => console.log(err))
-        .finally(setIsPreloader(false));
-    } else { setIsPreloader(false) };
-  }, [])
+  // useEffect(() => {
+  //   // api.setToken(token);
+  //   api.getCards()
+  //     .then((res) => {
+  //       setSavedMovies(res);
+  //     })
+  //     .catch((err) => console.log(err));
+  //   if (!beatfilmMovies.length) {
+  //     moviesApi.getCards()
+  //       .then((res) => {
+  //         // setBeatfilmMovies(res);
+  //         // localStorage.setItem(localMovies, JSON.stringify(res));
+  //       })
+  //       .catch((err) => console.log(err))
+  //       .finally(setIsPreloader(false));
+  //   } else { setIsPreloader(false) };
+  // }, [])
 
   useEffect(() => {
     if (!cardsResalt.length) {
@@ -90,9 +87,6 @@ function Movies() {
   function handleSearchMovie(text, statusCheckbox) {
     const searchResalt = searchMovies.search(text, statusCheckbox)
     setCardsResalt(searchResalt);
-    localStorage.setItem(moviesResalt, JSON.stringify(searchResalt));
-    localStorage.setItem(moviesSearchText, text);
-    localStorage.setItem(moviesStatusCheckbox, statusCheckbox);
   };
 
   //обработтчик сохранения фильмов
@@ -123,8 +117,8 @@ function Movies() {
     <main className="movies">
       <SearchForm
         onSearchMovie={handleSearchMovie}
-        text={localStorage.getItem(moviesSearchText)}
-        statusCheckbox={localStorage.getItem(moviesStatusCheckbox) === 'true' ? true : false}
+        // text={localStorage.getItem(moviesSearchText)}
+        // statusCheckbox={localStorage.getItem(moviesStatusCheckbox) === 'true' ? true : false}
       />
       {isPreloader ? <Preloader /> : cardsResalt.length ? <MoviesCardList
         cards={cardsResalt.slice(0, shownCardsNumber)}

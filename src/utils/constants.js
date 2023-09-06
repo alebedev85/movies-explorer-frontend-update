@@ -37,5 +37,5 @@ export const savedMoviesLocalStorageNames = {
 //Для перевода длительности фильмов в минуты
 export const DURATION_SHORT = 40;
 
-export const githubPage = '/movies-explorer-frontend'
-// export const githubPage = ''
+// export const githubPage = '/movies-explorer-frontend'
+export const githubPage = ''
