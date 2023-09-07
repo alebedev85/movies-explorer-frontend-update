@@ -1,4 +1,4 @@
-# movies-explorer-frontend
+# movies-explorer-frontend-update
 
 ![alt text](./opera_m6y0aE2P0o.gif)
 

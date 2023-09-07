@@ -23,7 +23,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({ name: '', email: '', _id: '' }); //стейт для тикущего пользователя
   const [token, setToken] = useState(); //стейт для токена
-  const [isLoggedIn, setLoggedIn] = useState(null); //стейт для статуса авторизации
+  const [isLoggedIn, setLoggedIn] = useState(true); //стейт для статуса авторизации
   const [isLoading, setIsLoading] = useState(false); //стейт для статуса загруски данных при запросах
   const [editUserRes, setEditUserRes] = useState(''); //положительное состояние ответа при редактирование профиля
   const [registerError, setRegisterError] = useState(''); //сообщение об ошибке при регистрации
