@@ -12,6 +12,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
 import Preloader from '../Preloader/Preloader';
+import FilmInfoPopup from '../FilmInfoPopup/FilmInfoPopup';
 import { api } from '../../utils/MainApi.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
@@ -29,6 +30,8 @@ function App() {
   const [registerError, setRegisterError] = useState(''); //сообщение об ошибке при регистрации
   const [loginError, setLoginError] = useState(''); //сообщение об ошибки при логирование
   const [profileErr, setProfileErr] = useState(''); //сообщение об ошибки при редактирование профиля
+
+  const [selectedCard, setSelectedCard] = React.useState({}); //State for selected card for ImagePopup
 
   //сброс всех сообщений об ошибках, проверки токена
   useEffect(() => {
@@ -142,6 +145,22 @@ function App() {
       });
   }
 
+  /**
+  * Handler for image popup.
+  * Changing state selectedCard.
+  * * @param {object} card - odject with card info.
+  */
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
+  /**
+  * Close all popups
+  */
+  function closeAllPopups() {
+    setSelectedCard({});
+  }
+
   return (
     isLoggedIn === null ? <Preloader /> :
       <CurrentUserContext.Provider value={{ currentUser, token }}>
@@ -173,10 +192,16 @@ function App() {
                   cleaner={cleanFormMasseges} />}
             />}
             <Route path={`${githubPage}/movies`}
-              element={<ProtectedRouteElement element={Movies} loggedIn={isLoggedIn} />}
+              element={<ProtectedRouteElement element={Movies}
+                loggedIn={isLoggedIn}
+                onCardClick={handleCardClick}
+              />}
             />
             <Route path={`${githubPage}/saved-movies`}
-              element={<ProtectedRouteElement element={SavedMovies} loggedIn={isLoggedIn} />}
+              element={<ProtectedRouteElement element={SavedMovies}
+                loggedIn={isLoggedIn}
+                onCardClick={handleCardClick}
+              />}
             />
             <Route path={`${githubPage}/profile`}
               element={<ProtectedRouteElement
@@ -194,6 +219,11 @@ function App() {
             />
           </Routes>
           <Footer />
+
+          <FilmInfoPopup
+            name={'picture'}
+            card={selectedCard}
+            onClose={closeAllPopups} />
 
         </div>
       </CurrentUserContext.Provider>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 
-function MoviesCard({ movie, isSaved, onSaveClick, onDeleteClick }) {
+function MoviesCard({ movie, isSaved, onSaveClick, onDeleteClick, onCardClick }) {
 
   const location = useLocation();
 
@@ -13,6 +13,13 @@ function MoviesCard({ movie, isSaved, onSaveClick, onDeleteClick }) {
     trailerLink: movie.trailerLink
   };
 
+  /**
+   * Handler for click on image
+   */
+  function handleImageClick() {
+    onCardClick(movie);
+  }
+
   function handlerSaveButton() {
     onSaveClick(movie)
   }
@@ -22,7 +29,7 @@ function MoviesCard({ movie, isSaved, onSaveClick, onDeleteClick }) {
   }
 
   return (
-    <li className="card" >
+    <li className="card link" onClick={handleImageClick}>
       <div className='card__info'>
         <h2 className='card__name'>
           {card.nameRU}
@@ -43,10 +50,7 @@ function MoviesCard({ movie, isSaved, onSaveClick, onDeleteClick }) {
             type='button' onClick={handlerDeleteButton}/>
         }
       </div>
-      <a href={card.trailerLink} className='card__link link' target="_blank" rel="noreferrer">
         <img className='card__poster' src={card.image} alt={`Постер ${card.nameRU}`} />
-      </a>
-
     </li>
   );
 }

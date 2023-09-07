@@ -15,7 +15,7 @@ import { ADD_MOVIES_CARD_L, ADD_MOVIES_CARD_M, ADD_MOVIES_CARD_S } from '../../u
 import beatfilmMovies from '../../utils/beatFilmMovies.json'
 
 
-function Movies() {
+function Movies({ onCardClick }) {
 
   const { width, isScreenS, isScreenM, isScreenL } = useResize(); //стейт для размера экрана
   // const { token } = React.useContext(CurrentUserContext);
@@ -117,8 +117,8 @@ function Movies() {
     <main className="movies">
       <SearchForm
         onSearchMovie={handleSearchMovie}
-        // text={localStorage.getItem(moviesSearchText)}
-        // statusCheckbox={localStorage.getItem(moviesStatusCheckbox) === 'true' ? true : false}
+      // text={localStorage.getItem(moviesSearchText)}
+      // statusCheckbox={localStorage.getItem(moviesStatusCheckbox) === 'true' ? true : false}
       />
       {isPreloader ? <Preloader /> : cardsResalt.length ? <MoviesCardList
         cards={cardsResalt.slice(0, shownCardsNumber)}
@@ -127,6 +127,7 @@ function Movies() {
         onSaveClick={handlerSaveMovie}
         onDeleteClick={handlerDeleteMovie}
         buttonVisibility={cardsResalt.length > shownCardsNumber}
+        onCardClick={onCardClick}
       />
         :
         <NotFoundSearch />}
