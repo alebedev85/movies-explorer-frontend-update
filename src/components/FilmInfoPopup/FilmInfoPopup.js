@@ -12,7 +12,7 @@ function FilmInfoPopup({card, onClose}) {
   return (
     <div className={`popup  ${Object.keys(card).length ? 'popup_opened' : ''}`}
       onClick={handleOverlayClose} >
-      <div className="popup__picture-container">
+      <div className="popup__container">
         <button className="popup__close-button" type="button" onClick={onClose}></button>
       </div>
     </div>

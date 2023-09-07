@@ -29,7 +29,7 @@ function MoviesCard({ movie, isSaved, onSaveClick, onDeleteClick, onCardClick })
   }
 
   return (
-    <li className="card link" onClick={handleImageClick}>
+    <li className='card' >
       <div className='card__info'>
         <h2 className='card__name'>
           {card.nameRU}
@@ -47,10 +47,10 @@ function MoviesCard({ movie, isSaved, onSaveClick, onDeleteClick, onCardClick })
         }
         {location.pathname === "/saved-movies" &&
           <button className='card__button button card__button_delete'
-            type='button' onClick={handlerDeleteButton}/>
+            type='button' onClick={handlerDeleteButton} />
         }
       </div>
-        <img className='card__poster' src={card.image} alt={`Постер ${card.nameRU}`} />
+      <img className='card__poster link' src={card.image} alt={`Постер ${card.nameRU}`} onClick={handleImageClick} />
     </li>
   );
 }
