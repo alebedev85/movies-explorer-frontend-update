@@ -15,18 +15,19 @@ function FilmInfoPopup({ card, onClose }) {
       <div className="popup__container">
         <button className="popup__close-button" type="button" onClick={onClose}></button>
         <div className='popup__media'>
-          <img class="card__poster"
+          <img class="popup__poster"
             src={card.image ? `https://api.nomoreparties.co/${card.image.url}` : ''}
             alt={`Постер ${card.nameRU}`} />
         </div>
         <div className='popup__data'>
-          <p>{card.nameRU}</p>
-          <p>{card.nameEN}</p>
-          <a href={card.trailerLink} className='card__link link' target="_blank" rel="noreferrer">Трейлер</a>
-          <p>Год: {card.year}</p>
-          <p>Страна: {card.country}</p>
-          <p>Режисер: {card.director}</p>
-          <p>Время: {Math.floor(card.duration / 60)}ч {card.duration - 60 * Math.floor(card.duration / 60)}м</p>
+          <p className='popup__title'>{card.nameRU}</p>
+          <p className='popup__subtitle'>{card.nameEN}</p>
+          <a href={card.trailerLink} className='popup__link link' target="_blank" rel="noreferrer">Трейлер &#62;&#62;</a>
+          <p className='popup__text popup__text_bold'>О фильме:</p>
+          <p className='popup__text'><span className='popup__text_span'>Год: </span>{card.year}</p>
+          <p className='popup__text'><span className='popup__text_span'>Страна: </span>{card.country}</p>
+          <p className='popup__text'><span className='popup__text_span'>Режисер: </span>{card.director}</p>
+          <p className='popup__text'><span className='popup__text_span'>Время: </span>{Math.floor(card.duration / 60)}ч {card.duration - 60 * Math.floor(card.duration / 60)}м</p>
         </div>
         <p className='poup__description'>{card.description}</p>
       </div>
