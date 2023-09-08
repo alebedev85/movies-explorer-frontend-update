@@ -20,6 +20,7 @@
 
 .popup__container {
   position: relative;
+  padding: 30px;
   width: 60%;
   min-height: 60%;
   background-color: #202020;
@@ -33,16 +34,6 @@
 
 .popup__media {
   grid-area: media;
-  display: flex;
-  flex-direction: column;
-}
-
-.popup__poster {
-
-}
-
-.popup__trailer {
-  
 }
 
 .popup__data {

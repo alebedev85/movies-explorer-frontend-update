@@ -151,7 +151,6 @@ function App() {
   * * @param {object} card - odject with card info.
   */
   function handleCardClick(card) {
-    console.log(card.trailerLink)
     setSelectedCard(card);
   }
 
