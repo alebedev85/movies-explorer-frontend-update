@@ -17,7 +17,8 @@ import { api } from '../../utils/MainApi.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 import { githubPage } from '../../utils/constants.js';
-import beatfilmMovies from '../../utils/beatFilmMovies.json'
+import beatfilmMovies from '../../utils/beatFilmMovies.json';
+import Search from '../../utils/Search';
 
 function App() {
 
@@ -182,6 +183,14 @@ function App() {
     setCardsResalt((state) => state.map((m) => m.id === movie.id ? movie : m));
   }
 
+  const searchMovies = new Search(beatfilmMovies) //экземпляр класса для поиска
+
+  //обработчик поиска фильмов
+  function handleSearchMovie(text, statusCheckbox) {
+    const searchResalt = searchMovies.search(text, statusCheckbox)
+    setCardsResalt(searchResalt);
+  };
+
   return (
     isLoggedIn === null ? <Preloader /> :
       <CurrentUserContext.Provider value={{ currentUser, token, savedMovies, cardsResalt }}>
@@ -217,6 +226,7 @@ function App() {
                 loggedIn={isLoggedIn}
                 onCardClick={handleCardClick}
                 onSaveClick={handlerSaveButtonClick}
+                searchMovie={handleSearchMovie}
               />}
             />
             <Route path={`${githubPage}/saved-movies`}
@@ -224,6 +234,7 @@ function App() {
                 loggedIn={isLoggedIn}
                 onCardClick={handleCardClick}
                 onSaveClick={handlerSaveButtonClick}
+                searchMovie={handleSearchMovie}
               />}
             />
             <Route path={`${githubPage}/profile`}

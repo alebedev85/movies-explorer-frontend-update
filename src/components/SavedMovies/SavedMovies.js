@@ -12,7 +12,7 @@ import { MOVIES_CARDS_L, MOVIES_CARDS_M, MOVIES_CARDS_S } from '../../utils/cons
 import { ADD_MOVIES_CARD_L, ADD_MOVIES_CARD_M, ADD_MOVIES_CARD_S } from '../../utils/constants';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-function SavedMovies({ onCardClick, onSaveClick }) {
+function SavedMovies({ onCardClick, onSaveClick, searchMovie }) {
 
   const { width, isScreenS, isScreenM, isScreenL } = useResize(); //стейт для размера экрана
   const { moviesSearchText, moviesStatusCheckbox } = savedMoviesLocalStorageNames //имена записей в localStorage
@@ -24,22 +24,6 @@ function SavedMovies({ onCardClick, onSaveClick }) {
 
 
   const { savedMovies, cardsResalt } = React.useContext(CurrentUserContext);
-  //проверка localStorage и получение карточек
-  // useEffect(() => {
-  //   api.getCards()
-  //     .then((res) => {
-  //       setSavedMovies(res);
-  //     })
-  //     .catch((err) => console.log(err))
-  //     .finally(setIsPreloader(false));
-  // }, [])
-
-  // //выгрузка всех карточек если поиск пустой
-  // useEffect(() => {
-  //   if (!cardsResalt.length) {
-  //     setCardsResalt(savedMovies);
-  //   }
-  // }, [savedMovies])
 
   //зависимость колличества отображаемых карточек от размера экрана
   useEffect(() => {
@@ -71,34 +55,6 @@ function SavedMovies({ onCardClick, onSaveClick }) {
     setShownCardsNumber(shownCardsNumber + cardsNumber.next)
   };
 
-  const searchMovies = new Search(savedMovies) //экземпляр класса для поиска
-
-  /**
-     * Обработтчик выхода из аккаунта
-     * @param {string} - текст поиска.
-     * @param {string} - статус чекбокса.
-     */
-  function handleSearchMovie(text, statusCheckbox) {
-    // const searchResalt = searchMovies.search(text, statusCheckbox)
-    // setCardsResalt(searchResalt);
-    // localStorage.setItem(moviesSearchText, text);
-    // localStorage.setItem(moviesStatusCheckbox, statusCheckbox);
-  };
-
-  /**
-     * Обработтчик удаления сохранённого фильма
-     * @param {object} - объект с удаляемым фильмом.
-     */
-  function handlerDeleteMovie(movie) {
-    // api.deleteCard(movie._id)
-    //   .then(() => {
-    //     const filtedList = savedMovies.filter((elm) => elm._id !== movie._id)
-    //     setSavedMovies(filtedList);
-    //     setCardsResalt(filtedList);
-    //   })
-    //   .catch((err) => console.log(err));
-  }
-
   //обработтчик проверки сохраненных фильмов
   function handlerCheckSaveMovie(movie) {
     return movie.saved === true
@@ -107,13 +63,12 @@ function SavedMovies({ onCardClick, onSaveClick }) {
   return (
     <main className="movies">
       <SearchForm
-        onSearchMovie={handleSearchMovie}
+        onSearchMovie={searchMovie}
         text={localStorage.getItem(moviesSearchText)}
         statusCheckbox={localStorage.getItem(moviesStatusCheckbox) === 'true' ? true : false}
       />
       {isPreloader ? <Preloader /> : savedMovies.length ? <MoviesCardList
         cards={savedMovies.slice(0, shownCardsNumber)}
-        onDeleteClick={handlerDeleteMovie}
         onClick={handleNextCards}
         buttonVisibility={cardsResalt.length > shownCardsNumber}
         checkSaveMivie={handlerCheckSaveMovie}
