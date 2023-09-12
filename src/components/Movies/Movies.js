@@ -91,7 +91,7 @@ function Movies({ onCardClick }) {
 
   //обработтчик проверки сохраненных фильмов
   function handlerCheckSaveMovie(movie) {
-    return savedMovies.some((elm) => elm.movieId === movie.id)
+    return movie.saved === true
   }
 
   //обработтчик удаления сохраненных фильмов
@@ -107,7 +107,7 @@ function Movies({ onCardClick }) {
   //обработтчик сохранения фильмов
   function handlerSaveButtonClick(movie) {
     movie.saved ? movie.saved = !movie.saved : movie.saved = true;
-    console.log(movie.saved)
+    setCardsResalt((state) => state.map((m) => m.id === movie.id ? movie : m));
   }
 
   return (
