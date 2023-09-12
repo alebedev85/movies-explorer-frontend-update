@@ -17,6 +17,7 @@ import { api } from '../../utils/MainApi.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 import { githubPage } from '../../utils/constants.js';
+import beatfilmMovies from '../../utils/beatFilmMovies.json'
 
 function App() {
 
@@ -33,6 +34,10 @@ function App() {
 
   const [selectedCard, setSelectedCard] = React.useState({}); //State for selected card for ImagePopup
 
+  const [savedMovies, setSavedMovies] = useState([]); //стейт для всех карточек
+  const [cardsResalt, setCardsResalt] = useState([]); //стейт для окончательного списка карточек
+
+
   //сброс всех сообщений об ошибках, проверки токена
   useEffect(() => {
     // const jwt = localStorage.getItem('jwt');
@@ -41,6 +46,16 @@ function App() {
     // } else setLoggedIn(false);
     setLoggedIn(true); // состояние для GitHub Pages
   }, []);
+
+  useEffect(() => {
+    if (!cardsResalt.length) {
+      setCardsResalt(beatfilmMovies);
+    }
+  }, [beatfilmMovies])
+
+  useEffect(() => {
+    setSavedMovies(cardsResalt.filter(m => m.saved === true))
+  }, [cardsResalt])
 
   //получение данных пользователя при обновление токена
   useEffect(() => {
@@ -161,9 +176,15 @@ function App() {
     setSelectedCard({});
   }
 
+  //обработтчик сохранения фильмов
+  function handlerSaveButtonClick(movie) {
+    movie.saved ? movie.saved = !movie.saved : movie.saved = true;
+    setCardsResalt((state) => state.map((m) => m.id === movie.id ? movie : m));
+  }
+
   return (
     isLoggedIn === null ? <Preloader /> :
-      <CurrentUserContext.Provider value={{ currentUser, token }}>
+      <CurrentUserContext.Provider value={{ currentUser, token, savedMovies, cardsResalt }}>
         <div className="page">
           <Header
             loggedIn={isLoggedIn}
@@ -195,12 +216,14 @@ function App() {
               element={<ProtectedRouteElement element={Movies}
                 loggedIn={isLoggedIn}
                 onCardClick={handleCardClick}
+                onSaveClick={handlerSaveButtonClick}
               />}
             />
             <Route path={`${githubPage}/saved-movies`}
               element={<ProtectedRouteElement element={SavedMovies}
                 loggedIn={isLoggedIn}
                 onCardClick={handleCardClick}
+                onSaveClick={handlerSaveButtonClick}
               />}
             />
             <Route path={`${githubPage}/profile`}

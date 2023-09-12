@@ -11,20 +11,20 @@ import { useResize } from '../hooks/useResize';
 import Search from '../../utils/Search';
 import { MOVIES_CARDS_L, MOVIES_CARDS_M, MOVIES_CARDS_S } from '../../utils/constants';
 import { ADD_MOVIES_CARD_L, ADD_MOVIES_CARD_M, ADD_MOVIES_CARD_S } from '../../utils/constants';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-import beatfilmMovies from '../../utils/beatFilmMovies.json'
+function Movies({ onCardClick, onSaveClick }) {
 
-
-function Movies({ onCardClick }) {
+  const { savedMovies, cardsResalt } = React.useContext(CurrentUserContext);
 
   const { width, isScreenS, isScreenM, isScreenL } = useResize(); //стейт для размера экрана
   // const { token } = React.useContext(CurrentUserContext);
 
   const [cardsNumber, setCardsNumber] = useState({ first: '', next: '', }); //стейт для колличества карточек на экране
   const [isPreloader, setIsPreloader] = useState(false); //стейт состояния прелоудора
-  const [savedMovies, setSavedMovies] = useState([]); //стейт для всех карточек
+
   const [shownCardsNumber, setShownCardsNumber] = useState(cardsNumber.first); //стейт сколько картачек сейчас на экране
-  const [cardsResalt, setCardsResalt] = useState({}); //стейт для окончательного списка карточек
+
 
   //проверка localStorage и получение карточек
   // useEffect(() => {
@@ -45,11 +45,11 @@ function Movies({ onCardClick }) {
   //   } else { setIsPreloader(false) };
   // }, [])
 
-  useEffect(() => {
-    if (!cardsResalt.length) {
-      setCardsResalt(beatfilmMovies);
-    }
-  }, [beatfilmMovies])
+  // useEffect(() => {
+  //   if (!cardsResalt.length) {
+  //     setCardsResalt(beatfilmMovies);
+  //   }
+  // }, [beatfilmMovies])
 
   //зависимость колличества отображаемых карточек от размера экрана
   useEffect(() => {
@@ -81,12 +81,12 @@ function Movies({ onCardClick }) {
     setShownCardsNumber(shownCardsNumber + cardsNumber.next)
   };
 
-  const searchMovies = new Search(beatfilmMovies) //экземпляр класса для поиска
+  // const searchMovies = new Search(beatfilmMovies) //экземпляр класса для поиска
 
   //обработчик поиска фильмов
   function handleSearchMovie(text, statusCheckbox) {
-    const searchResalt = searchMovies.search(text, statusCheckbox)
-    setCardsResalt(searchResalt);
+    // const searchResalt = searchMovies.search(text, statusCheckbox)
+    // setCardsResalt(searchResalt);
   };
 
   //обработтчик проверки сохраненных фильмов
@@ -96,19 +96,19 @@ function Movies({ onCardClick }) {
 
   //обработтчик удаления сохраненных фильмов
   function handlerDeleteMovie(movie) {
-    const id = savedMovies.find((elm) => elm.movieId === movie.id)._id;
-    api.deleteCard(id)
-      .then(() => {
-        setSavedMovies(savedMovies.filter((elm) => elm._id !== id))
-      })
-      .catch((err) => console.log(err));
+    // const id = savedMovies.find((elm) => elm.movieId === movie.id)._id;
+    // api.deleteCard(id)
+    //   .then(() => {
+    //     setSavedMovies(savedMovies.filter((elm) => elm._id !== id))
+    //   })
+    //   .catch((err) => console.log(err));
   }
 
-  //обработтчик сохранения фильмов
-  function handlerSaveButtonClick(movie) {
-    movie.saved ? movie.saved = !movie.saved : movie.saved = true;
-    setCardsResalt((state) => state.map((m) => m.id === movie.id ? movie : m));
-  }
+  // //обработтчик сохранения фильмов
+  // function handlerSaveButtonClick(movie) {
+  //   movie.saved ? movie.saved = !movie.saved : movie.saved = true;
+  //   setCardsResalt((state) => state.map((m) => m.id === movie.id ? movie : m));
+  // }
 
   return (
     <main className="movies">
@@ -121,7 +121,7 @@ function Movies({ onCardClick }) {
         cards={cardsResalt.slice(0, shownCardsNumber)}
         onClick={handleNextCards}
         checkSaveMivie={handlerCheckSaveMovie}
-        onSaveClick={handlerSaveButtonClick}
+        onSaveClick={onSaveClick}
         onDeleteClick={handlerDeleteMovie}
         buttonVisibility={cardsResalt.length > shownCardsNumber}
         onCardClick={onCardClick}
