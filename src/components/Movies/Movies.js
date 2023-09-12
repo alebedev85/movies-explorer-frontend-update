@@ -89,15 +89,6 @@ function Movies({ onCardClick }) {
     setCardsResalt(searchResalt);
   };
 
-  //обработтчик сохранения фильмов
-  function handlerSaveMovie(movie) {
-    api.saveMovie(movie)
-      .then((res) => {
-        setSavedMovies([res, ...savedMovies])
-      })
-      .catch((err) => console.log(err))
-  }
-
   //обработтчик проверки сохраненных фильмов
   function handlerCheckSaveMovie(movie) {
     return savedMovies.some((elm) => elm.movieId === movie.id)
@@ -113,6 +104,12 @@ function Movies({ onCardClick }) {
       .catch((err) => console.log(err));
   }
 
+  //обработтчик сохранения фильмов
+  function handlerSaveButtonClick(movie) {
+    movie.saved ? movie.saved = !movie.saved : movie.saved = true;
+    console.log(movie.saved)
+  }
+
   return (
     <main className="movies">
       <SearchForm
@@ -124,7 +121,7 @@ function Movies({ onCardClick }) {
         cards={cardsResalt.slice(0, shownCardsNumber)}
         onClick={handleNextCards}
         checkSaveMivie={handlerCheckSaveMovie}
-        onSaveClick={handlerSaveMovie}
+        onSaveClick={handlerSaveButtonClick}
         onDeleteClick={handlerDeleteMovie}
         buttonVisibility={cardsResalt.length > shownCardsNumber}
         onCardClick={onCardClick}

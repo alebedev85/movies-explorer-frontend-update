@@ -15,7 +15,7 @@ function FilmInfoPopup({ card, onClose }) {
       <div className="popup__container">
         <button className="popup__close-button" type="button" onClick={onClose}></button>
         <div className='popup__media'>
-          <img class="popup__poster"
+          <img className="popup__poster"
             src={card.image ? `https://api.nomoreparties.co/${card.image.url}` : ''}
             alt={`Постер ${card.nameRU}`} />
         </div>

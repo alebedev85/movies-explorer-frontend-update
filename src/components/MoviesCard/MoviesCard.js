@@ -37,7 +37,9 @@ function MoviesCard({ movie, isSaved, onSaveClick, onDeleteClick, onCardClick })
         <p className='card__duration'>
           {Math.floor(card.duration / 60)}ч {card.duration - 60 * Math.floor(card.duration / 60)}м
         </p>
-        {location.pathname === "/movies" &&
+        <button className={'card__button button card__button_save'}
+            type='button' onClick={handlerSaveButton} />
+        {/* {location.pathname === "/movies" &&
           isSaved(movie) ?
           <button className={'card__button button card__button_save card__button_save-active'}
             type='button' onClick={handlerDeleteButton} />
@@ -48,7 +50,7 @@ function MoviesCard({ movie, isSaved, onSaveClick, onDeleteClick, onCardClick })
         {location.pathname === "/saved-movies" &&
           <button className='card__button button card__button_delete'
             type='button' onClick={handlerDeleteButton} />
-        }
+        } */}
       </div>
       <img className='card__poster link' src={card.image} alt={`Постер ${card.nameRU}`} onClick={handleImageClick} />
     </li>

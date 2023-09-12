@@ -8,7 +8,7 @@ function MoviesCardList({ cards, onClick, buttonVisibility, onSaveClick, checkSa
   return (
     <section className="card-list" aria-label="Картачки c фильмами">
       <ul className='card-list__container'>
-        {cards.map((movie, index) => (
+        {cards.map((movie) => (
           <MoviesCard
             key={movie._id || movie.id}
             movie={movie}
