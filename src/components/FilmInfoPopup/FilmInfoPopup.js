@@ -1,12 +1,16 @@
 import React from 'react';
 import './FilmInfoPopup.css';
 
-function FilmInfoPopup({ card, onClose }) {
+function FilmInfoPopup({ card, onClose, onSaveClick, checkSaveMivie }) {
 
   function handleOverlayClose(evt) {
     if (evt.target.classList.contains('popup')) {
       onClose();
     };
+  }
+
+  function handlerSaveButton() {
+    onSaveClick(card)
   }
 
   return (
@@ -19,8 +23,11 @@ function FilmInfoPopup({ card, onClose }) {
             src={card.image ? `https://api.nomoreparties.co/${card.image.url}` : ''}
             alt={`Постер ${card.nameRU}`} />
           <button
-            className='popup__button button'
-            type='button'>Сохранить</button>
+            className={`popup__button button ${checkSaveMivie(card) ? 'popup__button_active' : ''}`}
+            type='button'
+            onClick={handlerSaveButton}>
+            {checkSaveMivie(card) ? 'Сохранён' : 'Сохранить'}
+          </button>
         </div>
         <div className='popup__data'>
           <p className='popup__title'>{card.nameRU}</p>

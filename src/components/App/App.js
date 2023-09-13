@@ -191,6 +191,11 @@ function App() {
     setCardsResalt(searchResalt);
   };
 
+  //обработтчик проверки сохраненных фильмов
+  function handlerCheckSaveMovie(movie) {
+    return movie.saved === true
+  }
+
   return (
     isLoggedIn === null ? <Preloader /> :
       <CurrentUserContext.Provider value={{ currentUser, token, savedMovies, cardsResalt }}>
@@ -227,6 +232,7 @@ function App() {
                 onCardClick={handleCardClick}
                 onSaveClick={handlerSaveButtonClick}
                 searchMovie={handleSearchMovie}
+                checkSaveMivie={handlerCheckSaveMovie}
               />}
             />
             <Route path={`${githubPage}/saved-movies`}
@@ -235,6 +241,7 @@ function App() {
                 onCardClick={handleCardClick}
                 onSaveClick={handlerSaveButtonClick}
                 searchMovie={handleSearchMovie}
+                checkSaveMivie={handlerCheckSaveMovie}
               />}
             />
             <Route path={`${githubPage}/profile`}
@@ -253,12 +260,12 @@ function App() {
             />
           </Routes>
           <Footer />
-
           <FilmInfoPopup
             name={'picture'}
             card={selectedCard}
-            onClose={closeAllPopups} />
-
+            onClose={closeAllPopups}
+            checkSaveMivie={handlerCheckSaveMovie}
+            onSaveClick={handlerSaveButtonClick} />
         </div>
       </CurrentUserContext.Provider>
   );

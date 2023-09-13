@@ -12,9 +12,9 @@ import { MOVIES_CARDS_L, MOVIES_CARDS_M, MOVIES_CARDS_S } from '../../utils/cons
 import { ADD_MOVIES_CARD_L, ADD_MOVIES_CARD_M, ADD_MOVIES_CARD_S } from '../../utils/constants';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-function Movies({ onCardClick, onSaveClick, searchMovie }) {
+function Movies({ onCardClick, onSaveClick, searchMovie, checkSaveMivie }) {
 
-  const { savedMovies, cardsResalt } = React.useContext(CurrentUserContext);
+  const { cardsResalt } = React.useContext(CurrentUserContext);
 
   const { width, isScreenS, isScreenM, isScreenL } = useResize(); //стейт для размера экрана
   // const { token } = React.useContext(CurrentUserContext);
@@ -55,12 +55,6 @@ function Movies({ onCardClick, onSaveClick, searchMovie }) {
     setShownCardsNumber(shownCardsNumber + cardsNumber.next)
   };
 
-  //обработтчик проверки сохраненных фильмов
-  function handlerCheckSaveMovie(movie) {
-    return movie.saved === true
-  }
-
-
   return (
     <main className="movies">
       <SearchForm
@@ -71,7 +65,7 @@ function Movies({ onCardClick, onSaveClick, searchMovie }) {
       {isPreloader ? <Preloader /> : cardsResalt.length ? <MoviesCardList
         cards={cardsResalt.slice(0, shownCardsNumber)}
         onClick={handleNextCards}
-        checkSaveMivie={handlerCheckSaveMovie}
+        checkSaveMivie={checkSaveMivie}
         onSaveClick={onSaveClick}
         buttonVisibility={cardsResalt.length > shownCardsNumber}
         onCardClick={onCardClick}

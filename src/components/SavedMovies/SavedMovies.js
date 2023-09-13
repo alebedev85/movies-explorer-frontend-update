@@ -6,13 +6,12 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import NotFoundSearch from '../NotFoundSearch/NotFoundSearch'
 
 import { useResize } from '../hooks/useResize';
-import Search from '../../utils/Search';
 import { savedMoviesLocalStorageNames } from '../../utils/constants';
 import { MOVIES_CARDS_L, MOVIES_CARDS_M, MOVIES_CARDS_S } from '../../utils/constants';
 import { ADD_MOVIES_CARD_L, ADD_MOVIES_CARD_M, ADD_MOVIES_CARD_S } from '../../utils/constants';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-function SavedMovies({ onCardClick, onSaveClick, searchMovie }) {
+function SavedMovies({ onCardClick, onSaveClick, searchMovie, checkSaveMivie }) {
 
   const { width, isScreenS, isScreenM, isScreenL } = useResize(); //стейт для размера экрана
   const { moviesSearchText, moviesStatusCheckbox } = savedMoviesLocalStorageNames //имена записей в localStorage
@@ -55,11 +54,6 @@ function SavedMovies({ onCardClick, onSaveClick, searchMovie }) {
     setShownCardsNumber(shownCardsNumber + cardsNumber.next)
   };
 
-  //обработтчик проверки сохраненных фильмов
-  function handlerCheckSaveMovie(movie) {
-    return movie.saved === true
-  }
-
   return (
     <main className="movies">
       <SearchForm
@@ -70,8 +64,8 @@ function SavedMovies({ onCardClick, onSaveClick, searchMovie }) {
       {isPreloader ? <Preloader /> : savedMovies.length ? <MoviesCardList
         cards={savedMovies.slice(0, shownCardsNumber)}
         onClick={handleNextCards}
-        buttonVisibility={cardsResalt.length > shownCardsNumber}
-        checkSaveMivie={handlerCheckSaveMovie}
+        buttonVisibility={savedMovies.length > shownCardsNumber}
+        checkSaveMivie={checkSaveMivie}
         onSaveClick={onSaveClick}
         onCardClick={onCardClick}
       />
