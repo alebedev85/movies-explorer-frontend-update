@@ -1,6 +1,6 @@
 # movies-explorer-frontend-update
 
-![alt text](./opera_m6y0aE2P0o.gif)
+![alt text](./opera_1remw6CRZV.gif)
 
 Апдейт <a href="https://github.com/alebedev85/movies-explorer-frontend">дипломного проекта Яндекс Практикума</a> - от 
 оригинального отличается:
@@ -8,12 +8,3 @@
 * все данные берутся из локального файла, вместо сохранения добавляется поле Saved, при переходе на страницу Сохранённые фильмы
 сортируется по Saved;
 * при нажатии на карточку открывается модальное окно с информацией о фильме;
-
-**Использованы следующие методы и технологии:**
-- Node.js
-- Express
-- MongoDB
-- Mongoose
-- ESLint
-- Clebrate & Joi
-- Winston - логирование ошибок & запросов

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
+import { githubPage } from '../../utils/constants.js';
 
 function MoviesCard({ movie, isSaved, onSaveClick, onCardClick }) {
 
@@ -34,11 +35,11 @@ function MoviesCard({ movie, isSaved, onSaveClick, onCardClick }) {
           {Math.floor(card.duration / 60)}ч {card.duration - 60 * Math.floor(card.duration / 60)}м
         </p>
 
-        {location.pathname === "/movies" &&
+        {location.pathname === `${githubPage}/movies` &&
           <button className={`card__button link ${isSaved(movie) ? 'card__button_save-active' : 'button card__button_save '}`}
             type='button' onClick={handlerSaveButton} />
         }
-        {location.pathname === "/saved-movies" &&
+        {location.pathname === `${githubPage}/saved-movies` &&
           <button className='card__button button card__button_delete'
             type='button' onClick={handlerSaveButton} />
         }
