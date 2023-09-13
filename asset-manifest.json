@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/movies-explorer-frontend-update/static/css/main.657be2e2.css",
+    "main.css": "/movies-explorer-frontend-update/static/css/main.040b8f4e.css",
     "main.js": "/movies-explorer-frontend-update/static/js/main.c11d27bb.js",
     "static/media/RTKXSlUp1Tg_копия.jpg": "/movies-explorer-frontend-update/static/media/RTKXSlUp1Tg_копия.e38ad9e8909b0d3e30ee.jpg",
     "static/media/promo_logo.svg": "/movies-explorer-frontend-update/static/media/promo_logo.8c9cca64f34e5f61be20925cff6e298c.svg",
@@ -23,11 +23,11 @@
     "static/media/Burger-Button.svg": "/movies-explorer-frontend-update/static/media/Burger-Button.bc3f6448b5d51ce28967.svg",
     "static/media/Close-Button.svg": "/movies-explorer-frontend-update/static/media/Close-Button.4828fddbd650ab863f28.svg",
     "static/media/Popup-Close-Button.svg": "/movies-explorer-frontend-update/static/media/Popup-Close-Button.039f1f5203f653b4bacd.svg",
-    "main.657be2e2.css.map": "/movies-explorer-frontend-update/static/css/main.657be2e2.css.map",
+    "main.040b8f4e.css.map": "/movies-explorer-frontend-update/static/css/main.040b8f4e.css.map",
     "main.c11d27bb.js.map": "/movies-explorer-frontend-update/static/js/main.c11d27bb.js.map"
   },
   "entrypoints": [
-    "static/css/main.657be2e2.css",
+    "static/css/main.040b8f4e.css",
     "static/js/main.c11d27bb.js"
   ]
 }
