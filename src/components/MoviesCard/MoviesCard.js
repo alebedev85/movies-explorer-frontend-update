@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 
 function MoviesCard({ movie, isSaved, onSaveClick, onCardClick }) {
@@ -33,20 +33,15 @@ function MoviesCard({ movie, isSaved, onSaveClick, onCardClick }) {
         <p className='card__duration'>
           {Math.floor(card.duration / 60)}ч {card.duration - 60 * Math.floor(card.duration / 60)}м
         </p>
-        <button className={`card__button link ${isSaved(movie) ? 'card__button_save-active' : 'button card__button_save '}`}
-          type='button' onClick={handlerSaveButton} />
-        {/* {location.pathname === "/movies" &&
-          isSaved(movie) ?
-          <button className={'card__button button card__button_save card__button_save-active'}
-            type='button' onClick={handlerDeleteButton} />
-          :
-          <button className={'card__button button card__button_save'}
+
+        {location.pathname === "/movies" &&
+          <button className={`card__button link ${isSaved(movie) ? 'card__button_save-active' : 'button card__button_save '}`}
             type='button' onClick={handlerSaveButton} />
         }
         {location.pathname === "/saved-movies" &&
           <button className='card__button button card__button_delete'
-            type='button' onClick={handlerDeleteButton} />
-        } */}
+            type='button' onClick={handlerSaveButton} />
+        }
       </div>
       <img className='card__poster link' src={card.image} alt={`Постер ${card.nameRU}`} onClick={handleImageClick} />
     </li>
