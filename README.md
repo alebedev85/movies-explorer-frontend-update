@@ -1,6 +1,6 @@
 # movies-explorer-frontend-update
 
-![alt text](./opera_1remw6CRZV.gif)
+![Эток короткая видео презентация, подождите немного фаил загружается...](./opera_1remw6CRZV.gif)
 
 Апдейт <a href="https://github.com/alebedev85/movies-explorer-frontend">дипломного проекта Яндекс Практикума</a> - от 
 оригинального отличается:
